@@ -85,15 +85,17 @@ export class AppComponent implements OnInit {
   }
 
   public eliminarProducto(idProducto: number) {
-    this.productService.deleteProduct(idProducto).subscribe({
-      next: (dataBackend) => {
-        this.getAllProducts();
-        alert('¡Producto Borrado!');
-      },
-      error: (error) => {
-        console.log(error);
-        alert('Hubo un error en la eliminación del producto. Ver consola');
-      },
-    });
+    if (confirm('¿Está seguro que desea eliminar este producto?')) {
+      this.productService.deleteProduct(idProducto).subscribe({
+        next: (dataBackend) => {
+          this.getAllProducts();
+          alert('¡Producto Borrado!');
+        },
+        error: (error) => {
+          console.log(error);
+          alert('Hubo un error en la eliminación del producto. Ver consola');
+        },
+      });
+    }
   }
 }
